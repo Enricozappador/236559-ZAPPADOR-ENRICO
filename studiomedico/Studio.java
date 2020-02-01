@@ -142,20 +142,22 @@ public class Studio {
 		LinkedList<Medico> mtemp = new LinkedList<Medico>(medici.values());
 		LinkedList <Visita> vtemp = new LinkedList <Visita> (visite.values());
 		String orodinati = ""; 
-		
+		String ordcontr = ""; 
 		for(int i= 0; i<countm; i++){
 			orodinati = orodinati+ mtemp.get(i).getTitolo()+" "+mtemp.get(i).getCognome()+" "+mtemp.get(i).getNome()+" ("+mtemp.get(i).getSpecializzazione()+")"+"\n";
 			//if (i!= countm-1)
 				//orodinati += "\n";
-			
+			ordcontr =orodinati;
 			for (int y= 0; y<countv; y++){
 				
 				if( vtemp.get(y).getMedico().getCognome().compareTo(mtemp.get(i).getCognome()) == 0 && vtemp.get(y).getMedico().getNome().compareTo(mtemp.get(i).getNome())==0){
 					orodinati = orodinati + vtemp.get(y).getGiorno()+" "+vtemp.get(y).getDaora()+"-"+vtemp.get(y).getAora();
 					//if (y!= countv-1)
 					orodinati += "\n";
+					 
 			}
-				else {
+			
+				/*else {
 					orodinati= orodinati+"-";
 				}
 				//
@@ -166,6 +168,9 @@ public class Studio {
 						orodinati += "\n";
 				}*/
 		}
+			if(ordcontr == orodinati) {
+				orodinati = orodinati+"-"; 
+			}
 			/*if(mtemp.get(i)!=null) {
 				
 			}
@@ -271,7 +276,8 @@ public class Studio {
 			String aora = Integer.toString(aOra); 
 		String codice = Integer.toString(codicen)+"-"+nomeT.toUpperCase()+"-"+data.toUpperCase()+"-"+dao+"-"+aora;  
 		Prenotazione ptemp =new Prenotazione(codicen, atemp, mtemp, giorno, daOra, aOra ); 
-		if(ptemp.getInizio() != daOra || ptemp.getFine()!= aOra){
+		String cercaChiave = giorno+" "+daOra+"-"+aOra;;
+		if(visite.containsKey(cercaChiave)==false){
 			throw new EccezioneOrarioVisitaErrato(); 
 			
 		}
